@@ -11,9 +11,8 @@ class Event {
    * @returns {object} event
    */
   async createEvent(req, res) {
-    const {
-      tokenData: { id }
-    } = req.headers;
+    const { id } = req.header.tokenData;
+
     try {
       const {
         title,
