@@ -1,4 +1,8 @@
 node_modules
 *lock
 
+dist
+
 .env
+
+*.log
