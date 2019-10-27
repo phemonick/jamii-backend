@@ -28,7 +28,7 @@ export const verifyToken = async (req, res, next) => {
     }
     const tokenData = await jwt.verify(token, process.env.JWT_SECRET);
     console.log('tokenData', tokenData);
-    req.body.tokenData = tokenData;
+    req.header.tokenData = tokenData;
     return next();
   } catch (error) {
     return apiResponse(res, 500, 'Internal sevrer error', null);
