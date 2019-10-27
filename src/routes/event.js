@@ -9,5 +9,6 @@ eventRouter.get('/event_category/:category', Event.getEventsByCategory);
 eventRouter.get('/events', Event.getAllEvents);
 eventRouter.patch('/event/:id', verifyToken, Event.editEvent);
 eventRouter.delete('/event/:id', verifyToken, Event.deleteEvent);
+eventRouter.get('/user/events', verifyToken, Event.getAllEventByUser);
 
 export default eventRouter;

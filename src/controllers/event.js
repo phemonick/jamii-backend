@@ -1,5 +1,6 @@
 import EventModel from '../models/event';
 import { apiResponse } from '../utils/response';
+import { EEXIST } from 'constants';
 
 class Event {
   constructor() {
@@ -146,6 +147,25 @@ class Event {
         );
       }
       return apiResponse(res, 200, 'Event deleted successfully', event);
+    } catch (error) {
+      return apiResponse(res, 500, 'Internal server error', null);
+    }
+  }
+  async getAllEventByUser(req, res) {
+    try {
+      const { created, attended } = req.query;
+      const { id: userId } = req.header.tokenData;
+      let events = [];
+      if (Boolean(created)) {
+        events = await EventModel.find({
+          userId
+        });
+        return apiResponse(res, 200, null, events);
+      }
+      if (!events) {
+        return apiResponse(res, 404, 'No event created by this user yet', null);
+      }
+      return apiResponse(res, 400, 'Please provide a query parameter', null);
     } catch (error) {
       return apiResponse(res, 500, 'Internal server error', null);
     }
